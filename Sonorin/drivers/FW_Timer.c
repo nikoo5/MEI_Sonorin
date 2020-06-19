@@ -7,16 +7,11 @@ void TIMER0_IRQHandler(void)
 	if (Chip_TIMER_MatchPending(LPC_TIMER0, 1)) {
 		Chip_TIMER_ClearMatch(LPC_TIMER0, 1);
 		if(count > 0) count--;
-		else {
-			Chip_TIMER_Disable(LPC_TIMER0);
-			NVIC_DisableIRQ(TIMER0_IRQn);
-			Chip_TIMER_DeInit(LPC_TIMER0);
-		}
 	}
 }
 
 void TIMER_delay(uint32_t time, uint32_t freq) {
-	count = time - 1;
+	count = time;
 
 	Chip_TIMER_Init(LPC_TIMER0);
 	Chip_Clock_SetPCLKDiv(SYSCTL_CLOCK_TIMER0, 1);

@@ -148,3 +148,6 @@ void LCD_DrawRectangleRadius(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uin
 void LCD_DrawCircle(uint16_t cx, uint16_t cy, uint16_t r);
 void LCD_DrawChar(uint16_t x, uint16_t y, char c, uint8_t font_size);
 void LCD_DrawText(uint16_t x, uint16_t y, char *str, uint8_t font_size);
+void LCD_DrawSevenSeg(uint16_t x, uint16_t y, uint8_t number, bool dot);
+
+void LCD_ClearArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);

@@ -3,7 +3,7 @@
 #define swap(type, v1, v2) {type v3 = v1; v1 = v2; v2 = v3;}
 
 uint8_t _dataDir = LCD_DATA_DIR;
-uint8_t _orientacion = LANDSCAPE;
+uint8_t _orientacion = PORTRAIT;
 uint8_t TFT_busy = 0;
 
 uint32_t _color = 0x0;
@@ -443,4 +443,54 @@ void LCD_DrawText(uint16_t x, uint16_t y, char *str, uint8_t font_size) {
 		if(str[i] == 0x0) break;
 		LCD_DrawChar(x + (i * (font_width - 1)), y, str[i], font_size);
 	}
+}
+
+void LCD_DrawSevenSeg(uint16_t x, uint16_t y, uint8_t number, bool dot) {
+	LCD_ClearArea(x, y, 40, 80);
+
+	//0
+	if(number == 0 || number == 4 || number == 5 || number == 6 || number == 8 || number == 9) {
+		LCD_DrawRectangle(x+5,y+15,6,20,true);
+	}
+
+	//1
+	if(number == 0 || number == 2 || number == 3 || number == 5 || number == 6 || number == 7 || number == 8 || number == 9) {
+		LCD_DrawRectangle(x+10,y+5,20,6,true);
+	}
+
+	//2
+	if(number == 0 || number == 1 || number == 2 || number == 3 || number == 4 || number == 7 || number == 8 || number == 9) {
+		LCD_DrawRectangle(x+29,y+15,6,20,true);
+	}
+
+	//3
+	if(number == 0 || number == 1 || number == 3 || number == 4 || number == 5 || number == 6 || number == 7 || number == 8 || number == 9) {
+		LCD_DrawRectangle(x+29,y+45,6,20,true);
+	}
+
+	//4
+	if(number == 0 || number == 2 || number == 3 || number == 5 || number == 6 || number == 8 || number == 9) {
+		LCD_DrawRectangle(x+10,y+69,20,6,true);
+	}
+
+	//5
+	if(number == 0 || number == 2 || number == 6 || number == 8) {
+		LCD_DrawRectangle(x+5,y+45,6,20,true);
+	}
+
+	//6
+	if(number == 2 || number == 3 || number == 4 || number == 5 || number == 6 || number == 8 || number == 9) {
+		LCD_DrawRectangle(x+10,y+37,20,6,true);
+	}
+
+	if(dot) {
+		LCD_DrawRectangle(x+35,y+67,6,6,true);
+	}
+}
+
+void LCD_ClearArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {
+	uint32_t bkp_color = _color;
+	LCD_SetColor(0x0);
+	LCD_DrawRectangle(x, y, w, h, true);
+	LCD_SetColor(bkp_color);
 }

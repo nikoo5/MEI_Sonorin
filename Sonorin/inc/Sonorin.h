@@ -24,6 +24,7 @@
 static void prvSetupHardware(void);
 
 static void vLEDTask(void *pvParameters);
+static void vTestTask(void *pvParameters);
 
 
 #endif /* SONORIN_H_ */
