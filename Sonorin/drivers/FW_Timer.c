@@ -4,7 +4,6 @@ uint32_t count = 0;
 
 void TIMER0_IRQHandler(void)
 {
-	uint8_t a = 1;
 	if (Chip_TIMER_MatchPending(LPC_TIMER0, 1)) {
 		Chip_TIMER_ClearMatch(LPC_TIMER0, 1);
 		if(count > 0) count--;
