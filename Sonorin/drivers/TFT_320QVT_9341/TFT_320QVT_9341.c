@@ -200,16 +200,16 @@ void LCD_SetArea(int x1, int y1, int x2, int y2) {
 	}
 
 	LCD_WriteCommand(LCD_COLUMN_ADDR);
-	LCD_WriteData(x1>>8);
-	LCD_WriteData(x1);
-	LCD_WriteData(x2>>8);
-	LCD_WriteData(x2);
+	LCD_WriteData((x1&0xFF00)>>8);
+	LCD_WriteData((x1&0x00FF));
+	LCD_WriteData((x2&0xFF00)>>8);
+	LCD_WriteData((x2&0x00FF));
 
 	LCD_WriteCommand(LCD_PAGE_ADDR);
-	LCD_WriteData(y1>>8);
-	LCD_WriteData(y1);
-	LCD_WriteData(y2>>8);
-	LCD_WriteData(y2);
+	LCD_WriteData((y1&0xFF00)>>8);
+	LCD_WriteData((y1&0x00FF));
+	LCD_WriteData((y2&0xFF00)>>8);
+	LCD_WriteData((y2&0x00FF));
 }
 void LCD_FillArea(uint16_t color, uint32_t pixels) {
 	if(pixels > 0x13000) return;
@@ -261,7 +261,10 @@ void LCD_SetColor(uint16_t hex) {
 	_color = hex;
 }
 void LCD_SetColorRGB(uint16_t r, uint16_t g, uint16_t b) {
-	_color = ((g & 28) << 3 | b >> 3) | ((r & 248) | g >> 5) << 8;
+	_color = LCD_GetHexFromRGB(r, g, b);
+}
+uint16_t LCD_GetHexFromRGB(uint16_t r, uint16_t g, uint16_t b) {
+	return ((g & 28) << 3 | b >> 3) | ((r & 248) | g >> 5) << 8;
 }
 void LCD_SetBorderWidth(uint8_t width) {
 	if(width == 0) width = 1;
@@ -486,6 +489,36 @@ void LCD_DrawSevenSeg(uint16_t x, uint16_t y, uint8_t number, bool dot) {
 	if(dot) {
 		LCD_DrawRectangle(x+35,y+67,6,6,true);
 	}
+}
+void LCD_DrawSignal(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t data[], uint16_t bg_color, uint16_t s_color) {
+	uint32_t pixels = (uint32_t)w * (uint32_t)h;
+	if(pixels > 0x13000) return;
+
+	LCD_SetArea(x, y, w, h);
+
+	LCD_WriteCommand(LCD_GRAM);
+
+	uint16_t bkp_color = _color;
+
+	LCD_EnableDataWrite();
+
+	for(uint32_t i = 0; i < pixels; i++) {
+		uint16_t x = i / w;
+		uint16_t y = i % w;
+
+		uint16_t val = h - x;
+
+		if(val == data[y]) {
+			LCD_SetDataValue(s_color);
+			LCD_Write();
+		} else {
+			LCD_SetDataValue(bg_color);
+			LCD_Write();
+		}
+	}
+
+	LCD_DisableWrite();
+	_color = bkp_color;
 }
 
 void LCD_ClearArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h) {

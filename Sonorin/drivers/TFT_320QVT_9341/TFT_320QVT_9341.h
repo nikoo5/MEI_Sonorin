@@ -139,6 +139,7 @@ uint16_t LCD_GetLcdPixelHeight(void);
 
 void LCD_SetColor(uint16_t hex);
 void LCD_SetColorRGB(uint16_t r, uint16_t g, uint16_t b);
+uint16_t LCD_GetHexFromRGB(uint16_t r, uint16_t g, uint16_t b);
 void LCD_SetBorderWidth(uint8_t width);
 
 void LCD_DrawPixel(uint16_t x, uint16_t y);
@@ -149,5 +150,6 @@ void LCD_DrawCircle(uint16_t cx, uint16_t cy, uint16_t r);
 void LCD_DrawChar(uint16_t x, uint16_t y, char c, uint8_t font_size);
 void LCD_DrawText(uint16_t x, uint16_t y, char *str, uint8_t font_size);
 void LCD_DrawSevenSeg(uint16_t x, uint16_t y, uint8_t number, bool dot);
+void LCD_DrawSignal(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t data[], uint16_t bg_color, uint16_t s_color);
 
 void LCD_ClearArea(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
