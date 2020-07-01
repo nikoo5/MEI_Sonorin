@@ -18,6 +18,16 @@
 
 #define BUILTIN_EEPROM_ADDRESS		0x50
 
+typedef union {
+    float f;
+    struct
+    {
+        unsigned int mantissa : 23;
+        unsigned int exponent : 8;
+        unsigned int sign : 1;
+    } raw;
+} my32bitFloat;
+
 void EEPROM_Init(void);
 
 void EEPROM_Write(uint16_t address, uint8_t* data);
