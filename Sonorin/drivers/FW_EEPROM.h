@@ -11,25 +11,24 @@
 #include "chip.h"
 #include "stdlib.h"
 #include "string.h"
+#include "arm_math.h"
+#include "fw_I2C.h"
 
-#define PUERTO_0  	 				0
-
-#define I2C1						1
-
-#define PIN_SDA1 	   	   			19
-#define PIN_SCL1  	   	   			20
-
-#define I2C_MODE					2 //NEITHER
-#define I2C_FUNC     				3
-
-#define I2C_CLOCKRATE				100000 //100kHz
+#define		LEN(x)		sizeof(x)/sizeof(x[0])
 
 #define BUILTIN_EEPROM_ADDRESS		0x50
-#define W_ADDRESS					0x00B0
 
-void EEPROM_Init_IO_Pins(void);
 void EEPROM_Init(void);
 
 void EEPROM_Write(uint16_t address, uint8_t* data);
+void EEPROM_Write8(uint16_t address, uint8_t data);
+void EEPROM_Write16(uint16_t address, uint16_t data);
+void EEPROM_Write32(uint16_t address, uint32_t data);
+void EEPROM_WriteFloat(uint16_t address, float32_t data);
 
+void EEPROM_Read(uint16_t address, uint8_t* data, uint16_t size);
+uint8_t EEPROM_Read8(uint16_t address);
+uint16_t EEPROM_Read16(uint16_t address);
+uint32_t EEPROM_Read32(uint16_t address);
+float32_t EEPROM_ReadFloat(uint16_t address);
 #endif /* FW_EEPROM_H_ */
