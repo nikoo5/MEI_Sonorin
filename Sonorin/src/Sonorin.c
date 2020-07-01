@@ -225,9 +225,6 @@ int main(void)
 
 	//FFT_Configure(FFT_SIZE);
 
-	memorySetPreAmp(456.789);
-	float32_t aaaa = memoryGetPreAmp();
-
 	xMutex = xSemaphoreCreateMutex();
 
 	xTaskCreate(vLEDTask, "vTaskLed", configMINIMAL_STACK_SIZE, (void *) NULL, (tskIDLE_PRIORITY + 1UL), (xTaskHandle *) NULL);
