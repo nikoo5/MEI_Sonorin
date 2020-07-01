@@ -49,7 +49,7 @@ static void prvSetupHardware(void)
 	LCD_Init();
 	//TOUCH_Init();
 	RTC_Init();
-
+	EEPROM_Init();
 	//ADC_Init();
 	//DMA_ADC_Init();
 }
@@ -224,6 +224,9 @@ int main(void)
 	prvSetupHardware();
 
 	//FFT_Configure(FFT_SIZE);
+
+	memorySetPreAmp(456.789);
+	float32_t aaaa = memoryGetPreAmp();
 
 	xMutex = xSemaphoreCreateMutex();
 

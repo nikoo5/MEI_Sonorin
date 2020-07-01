@@ -22,10 +22,11 @@
 #include "UT_Test.h"
 
 #include "app_FFT.h"
+#include "app_Memoria.h"
 
 #include "TFT_320QVT_9341.h"
 //#include "FW_TOUCH.h"
-//#include "FW_EEPROM.h"
+#include "FW_EEPROM.h"
 #include "FW_ADC.h"
 #include "FW_DMA.h"
 #include "fw_RTC.h"
