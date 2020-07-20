@@ -7,7 +7,7 @@
  Description : main definition
 ===============================================================================
 */
-
+s
 #include "Sonorin.h"
 
 #define FFT_SIZE	256
